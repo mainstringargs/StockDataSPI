@@ -1,4 +1,4 @@
-package com.mainstringargs.spi;
+package io.github.mainstringargs.stockData.spi;
 
 import java.util.ArrayList;
 import java.util.List;
