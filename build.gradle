@@ -7,13 +7,16 @@
  */
  
 plugins {
-
+    id 'java-library'
+    id 'maven-publish'
 }
 
 
-// Apply the java-library plugin to add support for Java Library
-apply plugin: 'java-library'
+group = 'com.mainstringargs'
+version = '1.0'
+
 apply plugin: 'eclipse'
+
 
 sourceCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
@@ -33,6 +36,22 @@ dependencies {
     
     compile group: 'org.slf4j', name:'slf4j-api', version: '1.7.25'
     compile group: 'org.slf4j', name:'slf4j-log4j12', version: '1.7.25'
+}
+
+
+publishing {
+    publications {
+        myLibrary(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'myRepo'
+            url = "file://${buildDir}/repo"
+        }
+    }
 }
 
 /*
