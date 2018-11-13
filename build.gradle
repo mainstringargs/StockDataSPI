@@ -36,7 +36,7 @@ modifyPom {
     project {
         name 'stock-data-spi'
         description 'SPI Library for Stock Data.'
-        url 'https://bitbucket.org/objdict/objjson'
+        url 'https://github.com/mainstringargs/stock-data-spi'
         inceptionYear '2018'
         scm {
             url 'https://github.com/mainstringargs/stock-data-spi'
