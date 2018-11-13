@@ -6,21 +6,59 @@
  * user guide available at https://docs.gradle.org/4.3/userguide/java_library_plugin.html
  */
  
-plugins {
-    id 'java-library'
-    id 'maven-publish'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+    }
 }
 
-
-group = 'com.mainstringargs'
-version = '1.0'
-
+plugins {
+    id 'io.codearte.nexus-staging' version '0.11.0'
+}
+apply plugin: 'java-library'
 apply plugin: 'eclipse'
+apply plugin: 'com.bmuschko.nexus'
+
+archivesBaseName = 'stock-data-spi'
+group = 'io.github.mainstringargs'
+version = '1.0'
 
 
 sourceCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
+
+modifyPom {
+    project {
+        name 'stock-data-spi'
+        description 'SPI Library for Stock Data.'
+        url 'https://bitbucket.org/objdict/objjson'
+        inceptionYear '2018'
+        scm {
+            url 'https://github.com/mainstringargs/stock-data-spi'
+            connection 'https://github.com/mainstringargs/stock-data-spi.git'
+            developerConnection 'https://github.com/mainstringargs/stock-data-spi.git'
+        }
+        licenses {
+            license {
+                name 'MIT License'
+                url 'https://opensource.org/licenses/MIT'
+                distribution 'repo'
+            }
+        }
+        developers {
+            developer {
+                id 'mainstringargs'
+                name 'main(String[] args)'
+                email 'mainstringargs@github.io'
+            }
+        }
+    }
+}
 
 
 // In this section you declare where to find the dependencies of your project
@@ -39,19 +77,19 @@ dependencies {
 }
 
 
-publishing {
-    publications {
-        myLibrary(MavenPublication) {
-            from components.java
-        }
-    }
+extraArchive {
+    sources = true
+    tests = true
+    javadoc = true
+}
+nexus {
+    sign = true
+    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+}
 
-    repositories {
-        maven {
-            name = 'myRepo'
-            url = "file://${buildDir}/repo"
-        }
-    }
+nexusStaging {
+    packageGroup = "io.github.mainstringargs" //optional if packageGroup == project.getGroup()
 }
 
 /*
