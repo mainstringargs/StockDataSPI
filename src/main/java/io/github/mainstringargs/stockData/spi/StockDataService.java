@@ -2,13 +2,14 @@ package io.github.mainstringargs.stockData.spi;
 
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface StockDataService.
  */
 public interface StockDataService {
 
   /**
-   * Inits the.
+   * Inits the Service.
    */
   public void init();
 
