@@ -1,7 +1,7 @@
 package io.github.mainstringargs.stockData.spi;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ServiceLoader;
 
 // TODO: Auto-generated Javadoc
@@ -11,12 +11,12 @@ import java.util.ServiceLoader;
 public class StockDataServiceLoader {
 
   /** The stock data service. */
-  private static List<StockDataService> stockDataService;
+  private static Map<String, StockDataService> stockDataServices;
 
   static {
-    stockDataService = new ArrayList<StockDataService>();
+    stockDataServices = new HashMap<String, StockDataService>();
     for (StockDataService sds : ServiceLoader.load(StockDataService.class)) {
-      stockDataService.add(sds);
+      stockDataServices.put(sds.getServiceName(), sds);
     }
   }
 
@@ -25,8 +25,8 @@ public class StockDataServiceLoader {
    *
    * @return the stock data services
    */
-  public static List<StockDataService> getStockDataServices() {
-    return stockDataService;
+  public static Map<String, StockDataService> getStockDataServices() {
+    return stockDataServices;
 
   }
 

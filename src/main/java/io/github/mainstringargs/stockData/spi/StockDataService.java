@@ -21,6 +21,21 @@ public interface StockDataService {
   public String getServiceName();
 
   /**
+   * Gets the short version of the service name.
+   *
+   * @return the short version of the service name
+   */
+  public String getShortServiceName();
+
+  /**
+   * Gets the stock data for one ticker.
+   *
+   * @param ticker the ticker
+   * @return the stock data
+   */
+  public Map<String, Object> getStockData(String ticker);
+
+  /**
    * Gets the stock data.
    *
    * @param tickers the tickers
